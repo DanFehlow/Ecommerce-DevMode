@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/modal.css" />
+    <script defer src="./scripts/script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@700&family=Montserrat&family=Mukta:wght@800&family=Roboto+Slab&family=Roboto:ital,wght@1,300&display=swap"
+      rel="stylesheet"
+    />
+    <title>Ecommerce DevMode</title>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="content">
+          <div class="wrapper">
+            <h2>Ecommerce DevMode</h2>
+            <div class="home-feed">
+              <div class="feed"></div>
+            </div>
+            <button id="one-more-product" onclick="addOtherProduct()">
+              <img src="./icons/buttonAddPost.png" alt="Button for add Post" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal" id="modal">
+        <div class="modal-content">
+          <header class="modal-header">
+            <h2 id="add-info">Adicionar Produto</h2>
+            <span class="modal-close" id="modalClose">&#10006;</span>
+          </header>
+          <form id="form" class="modal-form">
+            <input
+              type="text"
+              id="title"
+              data-index="new"
+              class="modal-field"
+              placeholder="Digite aqui o produto"
+              required
+            />
+            <input
+              type="number"
+              id="price"
+              class="modal-field"
+              placeholder="Digite aqui o valor do produto"
+              required
+            />
+            <input
+              type="text"
+              id="urlimage"
+              class="modal-field"
+              placeholder="Cole aqui a URL da imagem"
+              required
+            />
+          </form>
+          <footer class="modal-footer">
+            <button id="add-post" onclick="saveProduct()">
+              Adicionar Post
+            </button>
+          </footer>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #00000090;
+  opacity: 0;
+  z-index: -1;
+}
+
+.modal.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 50vw;
+  height: 70vh;
+  margin: 15vh auto;
+  padding-bottom: 20px;
+  background-color: #f8f8f8;
+  box-shadow: 1px 1px 10px black;
+}
+
+#add-info {
+  margin-left: 100px;
+  margin-top: 20px;
+  margin-bottom: 36px;
+  font-weight: bold;
+}
+
+.modal-header {
+  display: flex;
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  font-size: 1rem;
+}
+
+.modal-close {
+  position: absolute;
+  right: 0;
+  display: block;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background-color: #ff4949;
+  color: white;
+}
+
+.modal-form {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-field {
+  width: calc(80% - 40px);
+  margin-top: 30px;
+  margin-left: 100px;
+  height: 40px;
+  outline-style: none;
+  border-style: none;
+  box-shadow: 0 0 2px black;
+  font-size: 1rem;
+}
+
+#text {
+  height: 155px;
+  text-align: left;
+  display: flex;
+  padding-top: 23px;
+}
+#text::placeholder {
+  position: absolute;
+  top: 0;
+}
+
+.modal-footer {
+  background-color: inherit;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+#add-post {
+  margin-left: 30%;
+  margin-top: 50px;
+  width: calc(40% - 40px);
+  height: 45px;
+  background-color: #758feb;
+  color: rgba(255, 255, 255, 1);
+  font-weight: bold;
+  border: none;
+  transition: box-shadow 0.6s ease;
+  cursor: pointer;
+}
+
+#add-post:hover {
+  box-shadow: inset 500px 0 0 #00000055;
+}
+
+@media (max-width: 480px) {
+  .modal {
+    top: 100%;
+    transition: all 1s ease;
+  }
+  .modal.active {
+    top: 0;
+  }
+  .modal-content {
+    margin: 0;
+    width: 100%;
+    position: fixed;
+  }
+  .modal-field {
+    width: 100%;
+  }
+}
