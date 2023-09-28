@@ -1,78 +1,78 @@
 const addButton = () => {
-  document.getElementById('modal').classList.add('active')
-}
+  document.getElementById("modal").classList.add("active");
+};
 
 const addOtherProduct = () => {
-  document.getElementById('modal').classList.add('active')
-  removeChild()
-}
+  document.getElementById("modal").classList.add("active");
+  removeChild();
+};
 
 const removeChild = () => {
-  const parent = document.querySelector('.feed')
+  const parent = document.querySelector(".feed");
   while (parent.firstChild) {
-    parent.removeChild(parent.lastChild)
+    parent.removeChild(parent.lastChild);
   }
-}
+};
 
 const oneMoreProduct = () => {
-  document.querySelector('#one-more-product').classList.add('active')
-}
+  document.querySelector("#one-more-product").classList.add("active");
+};
 
 const closeModal = () => {
-  clearFields()
-  document.getElementById('modal').classList.remove('active')
-}
+  clearFields();
+  document.getElementById("modal").classList.remove("active");
+};
 
-const getLocalStorage = (key) => JSON.parse(localStorage.getItem(key)) ?? []
+const getLocalStorage = (key) => JSON.parse(localStorage.getItem(key)) ?? [];
 const setLocalStorage = (key, item) =>
-  localStorage.setItem(key, JSON.stringify(item))
+  localStorage.setItem(key, JSON.stringify(item));
 
 const createProduct = (database) => {
-  const dbProduct = getLocalStorage('database')
-  setLocalStorage('database', [...dbProduct, database])
-}
+  const dbProduct = getLocalStorage("database");
+  setLocalStorage("database", [...dbProduct, database]);
+};
 
 const clearFields = () => {
-  const fields = document.querySelectorAll('.modal-field')
-  fields.forEach((field) => (field.value = ''))
-  document.getElementById('title').dataset.index = 'new'
-}
+  const fields = document.querySelectorAll(".modal-field");
+  fields.forEach((field) => (field.value = ""));
+  document.getElementById("title").dataset.index = "new";
+};
 
 const saveProduct = () => {
   const database = {
-    title: document.getElementById('title').value,
-    price: document.getElementById('price').value,
-    urlimage: document.getElementById('urlimage').value,
+    title: document.getElementById("title").value,
+    price: document.getElementById("price").value,
+    urlimage: document.getElementById("urlimage").value,
     quantity: 1,
-  }
-  console.log(database)
-  createProduct(database)
-  updateProducts()
-  closeModal()
-}
+  };
+  console.log(database);
+  createProduct(database);
+  updateProducts();
+  closeModal();
+};
 
 const addProduct = (database, index) => {
-  const newProduct = document.createElement('div')
-  newProduct.classList.add('teste')
+  const newProduct = document.createElement("div");
+  newProduct.classList.add("teste");
   newProduct.innerHTML = `
   <img src="${database.urlimage}" class="size" />
   <h3 id="title-${index}"class="title-product">${database.title}</h3>
   <p id="text-feed">R$ ${database.price}</p>
   <button id="add-cart-${index}" class="add-cart" onclick="saveCartAdd(${index})">Adicionar ao carrinho</button>
-  `
-  document.querySelector('.feed').appendChild(newProduct)
-  oneMoreProduct()
-}
+  `;
+  document.querySelector(".feed").appendChild(newProduct);
+  oneMoreProduct();
+};
 const updateProducts = () => {
-  const dbPost = getLocalStorage('database')
-  dbPost.forEach(addProduct)
-}
+  const dbPost = getLocalStorage("database");
+  dbPost.forEach(addProduct);
+};
 
 // Cart Geral
 
 const printCart = (database, index) => {
-  const price = getLocalStorage('cartadd')[index].price
-  const post = document.getElementById('content-product')
+  const price = getLocalStorage("cartadd")[index].price * database.quantity;
+  const post = document.getElementById("content-product");
   post.innerHTML += `
   <div id="item" class="item">
     <div id="image" class="image">
@@ -103,36 +103,36 @@ const printCart = (database, index) => {
     </div>
     <span id="delete" onclick= "deleteProduct(${index})">Deletar Produto</span>
     </div>
-    `
-}
+    `;
+};
 
 const openCartStorage = () => {
-  const index = getLocalStorage('index')
-  const database = getLocalStorage('cartadd')[index]
-  printCart(database)
-}
+  const index = getLocalStorage("index");
+  const database = getLocalStorage("cartadd")[index];
+  printCart(database);
+};
 
-document.addEventListener('DOMContentLoaded', openCartStorage)
+document.addEventListener("DOMContentLoaded", openCartStorage);
 
 const setCartAdd = (database) => {
-  const dataBaseProductAdd = getLocalStorage('cartadd')
-  setLocalStorage('cartadd', [database, ...dataBaseProductAdd])
-  const url = 'cart.html'
-  window.open(url)
-}
+  const dataBaseProductAdd = getLocalStorage("cartadd");
+  setLocalStorage("cartadd", [database, ...dataBaseProductAdd]);
+  const url = "cart.html";
+  window.open(url);
+};
 
 const updateCart = () => {
-  const dbPost = getLocalStorage('cartadd')
-  dbPost.forEach(printCart)
-}
-document.addEventListener('DOMContentLoaded', updateCart)
+  const dbPost = getLocalStorage("cartadd");
+  dbPost.forEach(printCart);
+};
+document.addEventListener("DOMContentLoaded", updateCart);
 
 const saveCartAdd = (index) => {
-  const database = getLocalStorage('database')[index]
-  setCartAdd(database)
-  openCartStorage(database)
-  updateCart(database)
-}
+  const database = getLocalStorage("database")[index];
+  setCartAdd(database);
+  openCartStorage(database);
+  updateCart(database);
+};
 
 //pesquisar terceiro parametro em diante no map
 // const handleQuantity = (operationType, index) => {
@@ -154,24 +154,25 @@ const saveCartAdd = (index) => {
 // }
 
 const handleQuantity = (operationType, index) => {
-  const products = getLocalStorage('cartadd')
+  const products = getLocalStorage("cartadd");
   const newProducts = products.map((product, i) => {
     if (i == index) {
       const quantity =
-        operationType === 'minus' ? product.quantity - 1 : product.quantity + 1
-      product.quantity = quantity
-      const price = product.price
-      const priceTotal = price * quantity
-      const priceRefresh = document.getElementById(`price${index}`)
-      priceRefresh.innerText = `R$ ${priceTotal}`
-      product.price = priceTotal
-      const quantityRefresh = document.getElementById(`badge-${index}`)
-      quantityRefresh.innerText = quantity
+        operationType === "minus" ? product.quantity - 1 : product.quantity + 1;
+      product.quantity = quantity;
+      const price = product.price;
+      const priceTotal = price * quantity;
+      const priceRefresh = document.getElementById(`price${index}`);
+      priceRefresh.innerText = `R$ ${priceTotal}`;
+      // product.price = priceTotal
+      const quantityRefresh = document.getElementById(`badge-${index}`);
+      quantityRefresh.innerText = quantity;
     }
-    return product
-  })
-  setLocalStorage('cartadd', newProducts)
-}
+    return product;
+  });
+  setLocalStorage("cartadd", newProducts);
+  calculateTotal();
+};
 
 // const deleteProduct = (index) => {
 //   const dbProduct = getLocalStorage('cartadd')[index]
@@ -181,20 +182,20 @@ const handleQuantity = (operationType, index) => {
 // }
 
 function deleteProduct(index) {
-  const upProducts = getLocalStorage('cartadd')
-  upProducts.splice(index, 1)
-  setLocalStorage('cartadd', upProducts)
-  return location.reload()
+  const upProducts = getLocalStorage("cartadd");
+  upProducts.splice(index, 1);
+  setLocalStorage("cartadd", upProducts);
+  return location.reload();
 }
 
 const calculateTotal = () => {
-  const products = getLocalStorage('cartadd')
-  let totalQuantity = 0
-  let totalPrice = 0
+  const products = getLocalStorage("cartadd");
+  let totalQuantity = 0;
+  let totalPrice = 0;
   products.forEach((data) => {
-    totalQuantity += Number(data.quantity)
-    totalPrice += Number(data.price)
-  })
+    totalQuantity += Number(data.quantity);
+    totalPrice += Number(data.price) * Number(data.quantity);
+  });
 
   document.getElementById(`results-final`).innerHTML = `
   <div id="priceinfo" class="priceinfo">
@@ -205,15 +206,15 @@ const calculateTotal = () => {
         <span id="total-price" class="total-price"> R$ ${totalPrice}</span>
       </p>
     </div>
-  </div>`
-  return setLocalStorage('totalResults', [
+  </div>`;
+  return setLocalStorage("totalResults", [
     {
       totalQuantity,
       totalPrice,
     },
-  ])
-}
+  ]);
+};
 
-document.addEventListener('DOMContentLoaded', calculateTotal)
+document.addEventListener("DOMContentLoaded", calculateTotal);
 
-document.getElementById('modalClose').addEventListener('click', closeModal)
+document.getElementById("modalClose").addEventListener("click", closeModal);
